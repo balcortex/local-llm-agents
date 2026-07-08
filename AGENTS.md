@@ -38,28 +38,38 @@ Each skill should include:
 
 1. When to use it.
 2. A step-by-step procedure.
-3. Quality checks.
-4. Expected output.
-5. Common mistakes to avoid.
+3. Output expectations.
+4. Safety or scope constraints.
 
-## Safety and reliability
+## Role boundaries
 
-- Do not recommend destructive commands without explaining risk.
-- Do not fabricate file paths, APIs, schemas, or test results.
-- Clearly separate observed facts from assumptions.
-- Prefer small, verifiable changes over broad rewrites.
-- When reviewing code, cite concrete files, functions, or snippets whenever possible.
+- `explorer` reads and explains; it does not edit.
+- `reviewer` reviews and requests changes; it does not edit.
+- `debugger` diagnoses issues and may propose fixes.
+- `implementer` edits code within a narrow scope.
+- `orchestrator` coordinates agents and stops after bounded cycles.
+- `writer` documents finished or clearly scoped work.
 
-## Current agents
+## Response discipline
 
-- `explorer`
-- `reviewer`
-- `debugger`
-- `writer`
+Agents should not narrate internal planning. For implementation tasks, make the requested change first, then summarize the files changed and the result.
 
-## Current skills
+Avoid repetitive planning language such as:
 
-- `codebase-exploration`
-- `code-review`
-- `debugging`
-- `technical-writing`
+- "Actually, I will..."
+- "Wait, I will..."
+- "Let's go with..." repeated multiple times.
+
+If an agent starts repeating itself, stop and either:
+
+1. make the requested edit directly, or
+2. return `blocked` with one concise reason.
+
+## Anti-loop rules
+
+- Do not repeat the same decision more than once.
+- Do not run open-ended review/fix loops.
+- Use a maximum of two review cycles unless the user explicitly asks otherwise.
+- If the next action is clear, take it instead of restating a plan.
+- If the task is ambiguous, ask one concise question or make the safest minimal change.
+- Stop when the requested scope is complete.

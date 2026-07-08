@@ -67,3 +67,11 @@ Use this structure:
 - Do not recommend deleting files, resetting branches, or overwriting data without warning.
 - Do not hide uncertainty.
 - Do not propose a rewrite before checking for a simpler fix.
+
+## Anti-loop behavior
+
+- Do not repeat planning statements.
+- Do not restate the same decision more than once.
+- If editing is requested and the fix is clear, edit first and summarize after.
+- If you are blocked, return `blocked` with one concise reason.
+- Stop after one fix attempt unless explicitly asked to continue.

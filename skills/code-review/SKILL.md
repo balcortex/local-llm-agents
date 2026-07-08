@@ -1,70 +1,45 @@
 # Code Review Skill
 
-Use this skill when reviewing code, pull requests, diffs, or implementation changes.
-
-## Goal
-
-Find correctness, maintainability, testing, safety, and performance issues before changes are merged.
+Use this skill when reviewing code, pull requests, patches, or generated implementations.
 
 ## Procedure
 
-1. Understand the purpose of the change.
-   - What problem is being solved?
-   - What behavior is expected?
+1. Understand the requested change.
+2. Inspect the modified files.
+3. Check correctness first.
+4. Check edge cases.
+5. Check tests or missing test coverage.
+6. Check maintainability.
+7. Check security and data safety when relevant.
+8. Separate blocking issues from suggestions.
+9. End with a clear recommendation.
 
-2. Review correctness.
-   - Check logic, branches, conditions, joins, filters, and transformations.
-   - Check whether output matches the stated goal.
+## Severity
 
-3. Review edge cases.
-   - Empty input.
-   - Missing values.
-   - Duplicates.
-   - Unexpected types.
-   - Large inputs.
-   - Boundary dates or values.
-
-4. Review tests.
-   - Are the important paths tested?
-   - Are failure modes covered?
-   - Are tests reproducible?
-
-5. Review maintainability.
-   - Naming.
-   - Function size.
-   - Duplication.
-   - Hidden assumptions.
-   - Comments and documentation.
-
-6. Review operational risk.
-   - Secrets.
-   - Destructive commands.
-   - Data overwrite risk.
-   - Migration or deployment risk.
+- Blocking: likely bug, data loss, security issue, broken behavior, or failed requirement.
+- Non-blocking: readability, maintainability, style, performance, or future improvement.
 
 ## Output
 
 ```markdown
 ## Review summary
+<short summary>
 
 ## Blocking issues
+- `<path>`: <issue and why it matters>
 
 ## Non-blocking suggestions
+- `<path>`: <suggestion>
 
-## Tests to add or verify
+## Tests to add or check
+- <test idea>
 
 ## Final recommendation
+<approve / approve with comments / request changes>
 ```
 
-## Severity guide
+## Constraints
 
-- Blocking: likely bug, data corruption, broken workflow, security issue, or missing critical test.
-- Non-blocking: readability, maintainability, naming, documentation, or minor optimization.
-- Question: unclear requirement or assumption that should be confirmed.
-
-## Common mistakes
-
-- Giving vague comments without file references.
-- Over-focusing on style while missing correctness.
-- Suggesting large rewrites when a small fix is enough.
-- Claiming code was tested without evidence.
+- Do not modify files.
+- Stay inside the requested review scope.
+- Do not request changes for unrelated improvements.

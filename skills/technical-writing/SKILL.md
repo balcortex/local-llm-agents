@@ -1,76 +1,52 @@
 # Technical Writing Skill
 
-Use this skill when writing documentation, README sections, PR summaries, changelog entries, implementation notes, or technical messages.
-
-## Goal
-
-Communicate technical work clearly, accurately, and with the right level of detail for the audience.
+Use this skill when writing documentation, README updates, PR descriptions, changelogs, implementation notes, or technical messages.
 
 ## Procedure
 
 1. Identify the audience.
-   - Developer.
-   - Reviewer.
-   - Manager.
-   - Non-technical stakeholder.
+2. Identify the purpose of the writing.
+3. Gather the facts from code, commits, review notes, or user-provided context.
+4. Write clearly and directly.
+5. Keep caveats and limitations visible.
+6. Avoid claiming validation that was not performed.
 
-2. Identify the purpose.
-   - Explain.
-   - Summarize.
-   - Request review.
-   - Document usage.
-   - Record implementation details.
+## Common formats
 
-3. Gather facts.
-   - What changed?
-   - Why did it change?
-   - How was it validated?
-   - What limitations remain?
-
-4. Draft clearly.
-   - Use short sections.
-   - Prefer bullet points for scannability.
-   - Avoid unnecessary jargon.
-   - Keep caveats visible.
-
-5. Review for accuracy.
-   - Do not claim tests passed unless evidence exists.
-   - Do not exaggerate impact.
-   - Do not omit known limitations.
-
-## PR summary format
+### PR description
 
 ```markdown
 ## Summary
+- <change>
 - <change>
 
 ## Why
 - <reason>
 
 ## Validation
-- <test/check>
+- <test or check>
 
 ## Notes
 - <risk or follow-up>
 ```
 
-## Documentation format
+### README section
 
 ```markdown
-# <Title>
+## <Section>
 
-## Overview
+<short explanation>
 
-## Usage
+### Usage
+<steps>
 
-## Details
-
-## Notes
+### Notes
+<caveats>
 ```
 
-## Common mistakes
+## Constraints
 
-- Writing too much background before the main point.
-- Mixing uncertain assumptions with confirmed facts.
-- Using vague phrases like "some improvements" without details.
-- Forgetting validation or limitations.
+- Do not invent completed work.
+- Do not exaggerate impact.
+- Preserve technical accuracy.
+- Use concise language.

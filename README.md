@@ -14,6 +14,8 @@ local-llm-agents/
 │   ├── explorer.md
 │   ├── reviewer.md
 │   ├── debugger.md
+│   ├── implementer.md
+│   ├── orchestrator.md
 │   └── writer.md
 └── skills/
     ├── codebase-exploration/
@@ -21,6 +23,10 @@ local-llm-agents/
     ├── code-review/
     │   └── SKILL.md
     ├── debugging/
+    │   └── SKILL.md
+    ├── implementation/
+    │   └── SKILL.md
+    ├── review-implement-loop/
     │   └── SKILL.md
     └── technical-writing/
         └── SKILL.md
@@ -31,55 +37,78 @@ local-llm-agents/
 Agents define reusable roles.
 
 - `explorer`: understands codebases without changing files.
-- `reviewer`: reviews code, PRs, risks, and edge cases without changing files.
+- `reviewer`: reviews code, pull requests, risks, and edge cases without changing files.
 - `debugger`: diagnoses errors, logs, failing tests, and runtime issues.
+- `implementer`: makes scoped code changes with minimal explanation.
+- `orchestrator`: coordinates bounded workflows across agents.
 - `writer`: writes documentation, summaries, implementation notes, and technical messages.
 
 ## Skills
 
 Skills define reusable procedures.
 
-- `codebase-exploration`: how to inspect a project systematically.
-- `code-review`: how to review changes and report findings.
-- `debugging`: how to diagnose and resolve errors.
-- `technical-writing`: how to write clear technical documentation and summaries.
+- `codebase-exploration`: process for understanding a repository.
+- `code-review`: checklist for reviewing code and changes.
+- `debugging`: process for diagnosing and fixing failures.
+- `implementation`: process for making small, safe code changes.
+- `review-implement-loop`: bounded workflow for implement-review-fix-review cycles.
+- `technical-writing`: process for writing documentation and technical communication.
 
-## How to use
+## Suggested workflow
 
-### As a central template
+For a normal code change:
 
-Keep this repository in GitHub and update it over time. For each project, copy the relevant files into that project according to the tool you are using.
+```text
+@orchestrator Run a bounded review-implement workflow for this task:
+<describe task>
 
-Example for opencode-style project agents:
-
-```bash
-mkdir -p .opencode/agents
-cp path/to/local-llm-agents/agents/reviewer.md .opencode/agents/reviewer.md
-cp path/to/local-llm-agents/agents/explorer.md .opencode/agents/explorer.md
-cp path/to/local-llm-agents/agents/debugger.md .opencode/agents/debugger.md
-cp path/to/local-llm-agents/agents/writer.md .opencode/agents/writer.md
+Limits:
+- Maximum 2 review cycles.
+- Do not expand scope.
+- Stop after final review.
 ```
 
-### As shared instructions
+For a manual workflow:
 
-Copy or adapt `AGENTS.md` into the root of a project when using tools that read repository-level agent instructions.
+```text
+@implementer make the scoped change
+@reviewer review the change
+@implementer fix confirmed blocking issues
+@reviewer validate the fix
+@writer update documentation if needed
+```
 
-### As skills
+## Using with opencode
 
-Copy the relevant skill folder into the location expected by your tool.
+Project-level agents usually live in:
+
+```text
+.opencode/agents/
+```
+
+Project-level skills usually live in:
+
+```text
+.opencode/skills/
+```
+
+Example PowerShell sync into a project:
+
+```powershell
+mkdir .opencode\agents -Force
+Copy-Item C:\repos\local-llm-agents\agents\*.md .opencode\agents\ -Force
+
+mkdir .opencode\skills -Force
+Copy-Item C:\repos\local-llm-agents\skills\* .opencode\skills\ -Recurse -Force
+
+Copy-Item C:\repos\local-llm-agents\AGENTS.md .\AGENTS.md -Force
+```
 
 ## Design principles
 
-1. Keep agents small and focused.
-2. Prefer read-only agents by default.
-3. Do not hide uncertainty.
-4. Ask for confirmation before destructive actions.
-5. Keep tool-specific formats out of the central layer until needed.
-6. Evolve gradually based on repeated workflows.
-
-## Recommended first workflow
-
-1. Use `explorer` to understand the repository.
-2. Use `debugger` when something fails.
-3. Use `reviewer` before opening a PR.
-4. Use `writer` to prepare documentation or PR summaries.
+- Keep agents small and role-specific.
+- Keep skills procedural and reusable.
+- Prefer bounded workflows over open-ended loops.
+- Review agents should not edit code.
+- Implementation agents should make small scoped changes.
+- Orchestration should stop after a fixed number of cycles.

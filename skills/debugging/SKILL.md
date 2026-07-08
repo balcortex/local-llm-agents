@@ -1,66 +1,40 @@
 # Debugging Skill
 
-Use this skill when diagnosing an error, failing test, crash, broken command, incorrect output, or unexpected behavior.
-
-## Goal
-
-Find the root cause and propose the smallest safe fix.
+Use this skill when diagnosing errors, broken behavior, failing tests, runtime issues, or unexpected outputs.
 
 ## Procedure
 
-1. Capture the symptom.
-   - Error message.
-   - Stack trace.
-   - Failing command.
-   - Expected vs actual behavior.
-
-2. Narrow the scope.
-   - What changed recently?
-   - Which files are involved?
-   - Does the error happen consistently?
-
-3. Read the relevant code.
-   - Start at the stack trace location.
-   - Trace inputs and outputs.
-   - Check assumptions.
-
-4. Check environment and configuration.
-   - Environment variables.
-   - Dependency versions.
-   - File paths.
-   - Permissions.
-   - Runtime differences between local and server.
-
-5. Identify root cause.
-   - Separate symptoms from cause.
-   - Explain evidence.
-
-6. Propose a minimal fix.
-   - Prefer targeted changes.
-   - Avoid unrelated rewrites.
-
-7. Verify.
-   - Suggest a command, test, or manual check.
+1. State the observed symptom.
+2. Identify expected behavior.
+3. Read error messages, logs, and stack traces carefully.
+4. Find the relevant file and function.
+5. Check recent changes and assumptions.
+6. Identify the most likely root cause.
+7. Propose the smallest safe fix.
+8. Suggest a verification step.
 
 ## Output
 
 ```markdown
 ## Symptom
+<what is failing>
 
-## Likely root cause
+## Most likely cause
+<root cause>
 
 ## Evidence
+- `<path or log>`: <specific evidence>
 
 ## Suggested fix
+<minimal fix>
 
 ## Verification
-
-## Remaining uncertainty
+- <command or test>
 ```
 
-## Common mistakes
+## Constraints
 
-- Treating the last stack trace line as the root cause without checking context.
-- Ignoring environment variables or paths.
-- Recommending destructive cleanup too early.
-- Skipping verification.
+- Prefer evidence over speculation.
+- Do not rewrite unrelated code.
+- Do not repeat the same plan.
+- Stop after one fix attempt unless asked to continue.
