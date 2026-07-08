@@ -17,16 +17,18 @@ Maintain this repo as a central source of truth for reusable coding agents. Keep
 
 - Keep each agent focused on one role.
 - Do not make every agent responsible for everything.
-- Keep reviewer and implementer responsibilities separate.
+- Keep reviewer, tester, UI designer, and implementer responsibilities separate.
 - Use bounded workflows instead of open-ended loops.
 - Prefer small, clear instructions over long abstract prompts.
 
 ## Role boundaries
 
 - `explorer`: read and explain the repository; do not edit files.
-- `reviewer`: identify issues and request changes; do not edit files.
+- `reviewer`: identify code quality issues and request changes; do not edit files.
 - `implementer`: make scoped code changes; do not broaden scope.
 - `debugger`: diagnose root causes and suggest or apply targeted fixes when asked.
+- `tester`: verify behavior with focused automated tests or manual checklists.
+- `ui-designer`: design or review UI/UX; edit UI files only when explicitly asked.
 - `writer`: produce documentation and technical writing.
 - `orchestrator`: coordinate bounded multi-agent workflows.
 
@@ -45,10 +47,11 @@ If the next action is clear, perform it. If blocked, return a concise blocker ex
 
 ## Workflow limits
 
-When running review/fix workflows:
+When running review/fix/test workflows:
 
 - Use a maximum of two review cycles unless explicitly requested otherwise.
+- Use a maximum of one correction cycle by default.
 - Fix only blocking or high-confidence issues during correction cycles.
-- Do not expand scope during review.
+- Do not expand scope during review, testing, or UI design.
 - Stop when the workflow reaches its cycle limit.
 - Always summarize final status.

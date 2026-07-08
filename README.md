@@ -15,6 +15,8 @@ local-llm-agents/
 │   ├── reviewer.md
 │   ├── implementer.md
 │   ├── debugger.md
+│   ├── tester.md
+│   ├── ui-designer.md
 │   ├── writer.md
 │   └── orchestrator.md
 ├── skills/
@@ -25,6 +27,10 @@ local-llm-agents/
 │   ├── debugging/
 │   │   └── SKILL.md
 │   ├── implementation/
+│   │   └── SKILL.md
+│   ├── testing/
+│   │   └── SKILL.md
+│   ├── ui-design/
 │   │   └── SKILL.md
 │   ├── review-implement-loop/
 │   │   └── SKILL.md
@@ -38,11 +44,13 @@ local-llm-agents/
 
 | Agent | Mode | Purpose |
 |---|---|---|
-| `orchestrator` | primary | Coordinates bounded workflows such as implement → review → fix → review. |
+| `orchestrator` | primary | Coordinates bounded workflows such as implement → test → review → fix → validate. |
 | `explorer` | subagent | Explores a repository structure and explains how it works. |
 | `reviewer` | subagent | Reviews code and reports issues without editing files. |
 | `implementer` | subagent | Makes scoped code changes with minimal planning. |
 | `debugger` | subagent | Diagnoses bugs, logs, stack traces, and failure modes. |
+| `tester` | subagent | Verifies behavior with focused tests or manual checklists. |
+| `ui-designer` | subagent | Designs or reviews UI/UX for clarity, usability, accessibility, and responsive behavior. |
 | `writer` | subagent | Writes documentation, README updates, PR summaries, and technical notes. |
 
 Recommended role separation:
@@ -50,11 +58,41 @@ Recommended role separation:
 ```text
 orchestrator  -> coordinates workflow
 explorer      -> understands the repo
-reviewer      -> reviews, does not edit
+ui-designer   -> designs/reviews UI
 implementer   -> edits code
+tester        -> verifies behavior
+reviewer      -> reviews code, does not edit
 debugger      -> diagnoses bugs
 writer        -> documents
 ```
+
+## Recommended workflows
+
+For a normal implementation:
+
+```text
+orchestrator -> implementer -> reviewer
+```
+
+For a behavior-sensitive feature:
+
+```text
+orchestrator -> implementer -> tester -> reviewer
+```
+
+For a UI feature:
+
+```text
+orchestrator -> ui-designer -> implementer -> tester -> reviewer
+```
+
+For a bug fix:
+
+```text
+orchestrator -> debugger -> implementer -> tester/reviewer
+```
+
+Keep workflows bounded. The default recommendation is one implementation pass, one validation/review pass, one correction pass, and one final validation.
 
 ## Install into an opencode project
 
@@ -98,6 +136,8 @@ snake-test-2/
 │   │   ├── reviewer.md
 │   │   ├── implementer.md
 │   │   ├── debugger.md
+│   │   ├── tester.md
+│   │   ├── ui-designer.md
 │   │   ├── writer.md
 │   │   └── orchestrator.md
 │   └── skills/
@@ -105,6 +145,8 @@ snake-test-2/
 │       ├── code-review/
 │       ├── debugging/
 │       ├── implementation/
+│       ├── testing/
+│       ├── ui-design/
 │       ├── review-implement-loop/
 │       └── technical-writing/
 └── ...project files
@@ -168,20 +210,28 @@ If `orchestrator` is configured as a primary agent, select it as the active agen
 
 ```text
 Create a simple Snake game using HTML, CSS, and vanilla JavaScript.
-Run one implement-review-fix-review cycle and stop after one correction cycle.
+Run the standard UI implementation workflow and stop after one correction cycle.
+```
+
+The orchestrator should interpret that as:
+
+```text
+@ui-designer -> @implementer -> @tester -> @reviewer -> optional @implementer fix -> final validation
 ```
 
 To invoke subagents directly, select them through the `@` autocomplete so the mention becomes a structured agent reference:
 
 ```text
 @explorer summarize this repository structure
-@reviewer review the current implementation without editing files
+@ui-designer review the layout and usability of this page
 @implementer fix the blocking issue reported by the reviewer
+@tester verify the gameplay behavior and list manual checks
+@reviewer review the current implementation without editing files
 ```
 
 ## Notes
 
 - Keep `agents/` and `skills/` as the source of truth.
 - Avoid manually maintaining duplicated adapter files until a generator script exists.
-- Prefer bounded workflows with a maximum number of review/fix cycles.
+- Prefer bounded workflows with a maximum number of review/fix/test cycles.
 - If a model starts repeating planning text, stop it and re-run with a more direct prompt such as: `Edit the file directly. Do not write a plan. Summarize after editing.`
