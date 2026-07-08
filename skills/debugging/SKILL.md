@@ -1,40 +1,17 @@
 # Debugging Skill
 
-Use this skill when diagnosing errors, broken behavior, failing tests, runtime issues, or unexpected outputs.
+Use this skill when diagnosing a bug, failing behavior, or error message.
 
-## Procedure
+## Steps
 
-1. State the observed symptom.
-2. Identify expected behavior.
-3. Read error messages, logs, and stack traces carefully.
-4. Find the relevant file and function.
-5. Check recent changes and assumptions.
-6. Identify the most likely root cause.
-7. Propose the smallest safe fix.
-8. Suggest a verification step.
+1. Reproduce or restate the failure.
+2. Locate the likely failing code path.
+3. Identify the smallest plausible root cause.
+4. Propose the smallest safe fix.
+5. Verify with a targeted test or manual check.
 
-## Output
+## Rules
 
-```markdown
-## Symptom
-<what is failing>
-
-## Most likely cause
-<root cause>
-
-## Evidence
-- `<path or log>`: <specific evidence>
-
-## Suggested fix
-<minimal fix>
-
-## Verification
-- <command or test>
-```
-
-## Constraints
-
-- Prefer evidence over speculation.
-- Do not rewrite unrelated code.
-- Do not repeat the same plan.
+- Avoid broad rewrites.
+- Prefer targeted fixes.
 - Stop after one fix attempt unless asked to continue.

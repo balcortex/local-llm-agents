@@ -1,46 +1,26 @@
 # Review Implement Loop Skill
 
-Use this skill when coordinating a bounded implement-review-fix-review workflow.
+Use this skill for bounded implement-review-fix-review workflows.
 
-## Procedure
+## Default workflow
 
-1. Define the exact task scope.
-2. Ask the implementer to make the minimal change.
-3. Ask the reviewer to review only the requested scope.
-4. If there are blocking or high-confidence issues, ask the implementer to fix only those issues.
-5. Ask the reviewer for one final validation.
-6. Stop and summarize.
+1. Implement requested change.
+2. Review only the requested scope.
+3. Fix only blocking or high-confidence issues.
+4. Run one final focused review.
+5. Stop.
 
-## Cycle limits
+## Limits
 
-- Maximum review cycles: 2.
-- Maximum follow-up fix attempts: 1 after the first review.
-- Do not continue indefinitely.
-- Do not fix non-blocking suggestions unless the user explicitly requests them.
+- Maximum correction cycles: 1 by default.
+- Maximum review passes: 2 by default.
+- Do not run open-ended loops.
+- Do not expand scope during review.
 
-## Output
+## Final summary
 
-```markdown
-## Workflow summary
-- Task: <task>
-- Steps completed: <steps>
+Include:
 
-## Files changed
-- `<path>`: <description>
-
-## Review status
-<approved / approved with comments / request changes>
-
-## Remaining issues
-- <only if any>
-
-## Suggested next step
-<one next step>
-```
-
-## Constraints
-
-- Keep roles separate.
-- Reviewer does not edit.
-- Implementer edits only scoped issues.
-- Orchestrator stops after the cycle limit.
+- Files changed.
+- Review status.
+- Remaining issues, if any.

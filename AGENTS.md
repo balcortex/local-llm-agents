@@ -1,75 +1,54 @@
-# Repository Instructions for Local LLM Agents
+# Agent Repository Instructions
 
-This repository stores reusable instructions for coding agents and local LLM workflows.
+This repository stores reusable local LLM agent and skill templates.
 
-## Purpose
+## Scope
 
-Maintain a small, portable set of agent and skill definitions that can be reused across projects and tools.
+Maintain this repo as a central source of truth for reusable coding agents. Keep the structure simple, portable, and easy to copy into different projects.
 
-## Editing rules
+## Repository layout
 
-- Keep files simple and readable.
-- Prefer Markdown over tool-specific configuration unless required.
-- Avoid adding unnecessary abstractions.
-- Keep agents focused on roles.
-- Keep skills focused on procedures.
-- Do not mix project-specific business context into generic agents unless it belongs in a separate project-level instruction file.
+- `agents/`: reusable agent definitions.
+- `skills/`: reusable task procedures.
+- `scripts/`: installation and synchronization scripts.
+- `README.md`: user-facing usage instructions.
 
-## File conventions
+## Agent design rules
 
-- Agent files live in `agents/`.
-- Skill files live in `skills/<skill-name>/SKILL.md`.
-- Agent filenames should be short, lowercase, and hyphenated only when necessary.
-- Skill folder names should be lowercase and hyphenated.
-
-## Agent design guidelines
-
-Each agent should include:
-
-1. A clear role.
-2. What it should focus on.
-3. What it should avoid.
-4. Expected output format.
-5. Permission assumptions, especially whether it may modify files.
-
-## Skill design guidelines
-
-Each skill should include:
-
-1. When to use it.
-2. A step-by-step procedure.
-3. Output expectations.
-4. Safety or scope constraints.
+- Keep each agent focused on one role.
+- Do not make every agent responsible for everything.
+- Keep reviewer and implementer responsibilities separate.
+- Use bounded workflows instead of open-ended loops.
+- Prefer small, clear instructions over long abstract prompts.
 
 ## Role boundaries
 
-- `explorer` reads and explains; it does not edit.
-- `reviewer` reviews and requests changes; it does not edit.
-- `debugger` diagnoses issues and may propose fixes.
-- `implementer` edits code within a narrow scope.
-- `orchestrator` coordinates agents and stops after bounded cycles.
-- `writer` documents finished or clearly scoped work.
+- `explorer`: read and explain the repository; do not edit files.
+- `reviewer`: identify issues and request changes; do not edit files.
+- `implementer`: make scoped code changes; do not broaden scope.
+- `debugger`: diagnose root causes and suggest or apply targeted fixes when asked.
+- `writer`: produce documentation and technical writing.
+- `orchestrator`: coordinate bounded multi-agent workflows.
 
 ## Response discipline
 
 Agents should not narrate internal planning. For implementation tasks, make the requested change first, then summarize the files changed and the result.
 
-Avoid repetitive planning language such as:
+Avoid repetitive planning language. Do not repeat phrases such as:
 
 - "Actually, I will..."
+- "Let me think..."
+- "I will just..."
 - "Wait, I will..."
-- "Let's go with..." repeated multiple times.
 
-If an agent starts repeating itself, stop and either:
+If the next action is clear, perform it. If blocked, return a concise blocker explanation and stop.
 
-1. make the requested edit directly, or
-2. return `blocked` with one concise reason.
+## Workflow limits
 
-## Anti-loop rules
+When running review/fix workflows:
 
-- Do not repeat the same decision more than once.
-- Do not run open-ended review/fix loops.
-- Use a maximum of two review cycles unless the user explicitly asks otherwise.
-- If the next action is clear, take it instead of restating a plan.
-- If the task is ambiguous, ask one concise question or make the safest minimal change.
-- Stop when the requested scope is complete.
+- Use a maximum of two review cycles unless explicitly requested otherwise.
+- Fix only blocking or high-confidence issues during correction cycles.
+- Do not expand scope during review.
+- Stop when the workflow reaches its cycle limit.
+- Always summarize final status.
