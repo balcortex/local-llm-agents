@@ -1,3 +1,9 @@
+---
+name: ui-design
+description: Produce an implementation-ready UI handoff covering layout, structure, styling, interaction states, responsiveness, accessibility, files, and acceptance checks.
+compatibility: opencode
+---
+
 # UI Design Skill
 
 Use this skill when designing, reviewing, or improving a user interface.
@@ -7,14 +13,17 @@ Use this skill when designing, reviewing, or improving a user interface.
 - Improve clarity, usability, accessibility, and visual hierarchy.
 - Keep UI changes simple and implementable.
 - Preserve existing behavior unless a UI interaction requires change.
+- Return a handoff that another agent can implement without access to the design conversation.
 
 ## Procedure
 
-1. Identify the user goal and primary actions.
-2. Review layout, spacing, typography, color/contrast, states, and responsiveness.
-3. Propose the smallest design improvement that solves the issue.
-4. If editing is requested, modify only the necessary UI files.
-5. Summarize design choices and any manual checks.
+1. Inspect relevant existing UI files when available.
+2. Identify the user goal, primary actions, stack, and constraints.
+3. Review layout, spacing, typography, color/contrast, states, and responsiveness.
+4. Define the smallest design that solves the issue.
+5. Include exact HTML/component structure, class names, selectors, or tokens when they matter.
+6. If editing is requested, modify only the necessary UI files.
+7. Return a structured handoff or editing summary.
 
 ## UI checklist
 
@@ -26,32 +35,22 @@ Use this skill when designing, reviewing, or improving a user interface.
 - Focus states are visible where relevant.
 - Layout works at common screen sizes.
 - Contrast is acceptable.
+- Default, hover, focus, active, disabled, loading, empty, and error states are considered when relevant.
 - No unnecessary dependencies are added.
 
-## Output
+## Design handoff
 
-For design review:
+Include:
 
-```text
-UI review summary
-- ...
+- goal and existing constraints;
+- layout and hierarchy;
+- component or HTML structure;
+- visual styling and tokens;
+- interaction states;
+- responsive behavior;
+- accessibility requirements;
+- implementation files;
+- acceptance checks;
+- open decisions.
 
-Recommended changes
-- ...
-
-Priority
-- blocking / improvement / optional
-```
-
-For UI implementation:
-
-```text
-Files changed
-- ...
-
-UI changes
-- ...
-
-Follow-up
-- none / manual checks
-```
+Use a `.opencode/handoffs/` file only when explicitly requested or when the artifact is too long or exact to preserve reliably inline.

@@ -1,3 +1,9 @@
+---
+name: testing
+description: Verify a scoped implementation against acceptance criteria using existing automated tests or a focused manual checklist and return actionable failures.
+compatibility: opencode
+---
+
 # Testing Skill
 
 Use this skill when verifying implemented behavior, adding focused tests, or creating manual test checklists.
@@ -11,12 +17,12 @@ Use this skill when verifying implemented behavior, adding focused tests, or cre
 
 ## Procedure
 
-1. Identify the expected behavior and acceptance criteria.
+1. Read the expected behavior, acceptance criteria, changed files, and known constraints.
 2. Inspect existing test structure and package scripts if available.
 3. Choose the smallest useful test strategy:
-   - existing automated tests
-   - new focused unit/integration tests
-   - manual checklist when no test framework exists
+   - existing automated tests;
+   - new focused unit or integration tests when authorized;
+   - manual checklist when no test framework exists.
 4. Run the smallest relevant command when allowed.
 5. Report the result clearly.
 
@@ -26,7 +32,8 @@ Use this skill when verifying implemented behavior, adding focused tests, or cre
 - Edge cases related to the change.
 - Regression risks in nearby behavior.
 - Input handling and invalid states.
-- Browser/runtime compatibility when relevant.
+- Browser or runtime compatibility when relevant.
+- Every supplied acceptance criterion.
 
 ## Output
 
@@ -40,11 +47,17 @@ Checks performed
 - ...
 
 Issues found
-- none / issue list
+- ISSUE-1: reproduction, expected, actual, relevant file if known
+- none
+
+Acceptance criteria
+- criterion: passed / failed / not verified
 
 Final test status
-passed / failed / blocked
+- passed / failed / blocked
 ```
+
+Failures must be self-contained so the orchestrator can forward them to a separate implementer.
 
 ## Constraints
 

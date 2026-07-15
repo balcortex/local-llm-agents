@@ -20,6 +20,8 @@ local-llm-agents/
 │   ├── writer.md
 │   └── orchestrator.md
 ├── skills/
+│   ├── agent-handoff/
+│   │   └── SKILL.md
 │   ├── codebase-exploration/
 │   │   └── SKILL.md
 │   ├── code-review/
@@ -65,6 +67,24 @@ reviewer      -> reviews code, does not edit
 debugger      -> diagnoses bugs
 writer        -> documents
 ```
+
+## Context handoffs
+
+The orchestrator is responsible for transferring context between subagents. A later agent should receive the actual decisions, constraints, acceptance criteria, issue descriptions, and relevant file paths in its own task prompt. It should not be told only to use information from a previous turn.
+
+Preferred handoff:
+
+```text
+@ui-designer returns a structured UI handoff
+        ↓
+orchestrator extracts and forwards the relevant details
+        ↓
+@implementer receives a self-contained implementation task
+```
+
+For short results, the orchestrator forwards the required content inline. For long or exact artifacts, it may ask the originating agent to save a file under `.opencode/handoffs/`, then pass both a concise summary and the exact path to the next agent.
+
+The repository includes the `agent-handoff` skill for this procedure.
 
 ## Recommended workflows
 
@@ -140,7 +160,9 @@ snake-test-2/
 │   │   ├── ui-designer.md
 │   │   ├── writer.md
 │   │   └── orchestrator.md
+│   ├── handoffs/
 │   └── skills/
+│       ├── agent-handoff/
 │       ├── codebase-exploration/
 │       ├── code-review/
 │       ├── debugging/
@@ -216,8 +238,16 @@ Run the standard UI implementation workflow and stop after one correction cycle.
 The orchestrator should interpret that as:
 
 ```text
-@ui-designer -> @implementer -> @tester -> @reviewer -> optional @implementer fix -> final validation
+@ui-designer
+    -> orchestrator forwards the concrete UI handoff
+    -> @implementer
+    -> @tester
+    -> @reviewer
+    -> optional targeted @implementer fix
+    -> final validation
 ```
+
+Each downstream task should contain the required context. A task such as `use the HTML and CSS from the previous turn` is incomplete unless the orchestrator also includes that HTML/CSS or a path to a durable handoff file.
 
 To invoke subagents directly, select them through the `@` autocomplete so the mention becomes a structured agent reference:
 
@@ -232,6 +262,8 @@ To invoke subagents directly, select them through the `@` autocomplete so the me
 ## Notes
 
 - Keep `agents/` and `skills/` as the source of truth.
+- OpenCode skills require YAML frontmatter with `name` and `description`; all included skills follow that format.
+- Use direct orchestrator context transfer by default and `.opencode/handoffs/` for long or exact artifacts.
 - Avoid manually maintaining duplicated adapter files until a generator script exists.
 - Prefer bounded workflows with a maximum number of review/fix/test cycles.
 - If a model starts repeating planning text, stop it and re-run with a more direct prompt such as: `Edit the file directly. Do not write a plan. Summarize after editing.`

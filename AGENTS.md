@@ -30,7 +30,23 @@ Maintain this repo as a central source of truth for reusable coding agents. Keep
 - `tester`: verify behavior with focused automated tests or manual checklists.
 - `ui-designer`: design or review UI/UX; edit UI files only when explicitly asked.
 - `writer`: produce documentation and technical writing.
-- `orchestrator`: coordinate bounded multi-agent workflows.
+- `orchestrator`: coordinate bounded multi-agent workflows and transfer context between agents.
+
+## Context and handoff protocol
+
+Subagents do not need to share a conversation directly. The orchestrator owns the handoff between them.
+
+When one agent's result is needed by another agent:
+
+1. The originating agent returns a structured result containing decisions, constraints, relevant paths, acceptance criteria, and unresolved issues.
+2. The orchestrator reads that result and translates the relevant parts into the next agent's task prompt.
+3. The next prompt must contain the actual required context. Do not refer only to "the previous turn" or "what the other agent said."
+4. Preserve exact code, selectors, schemas, commands, and other implementation-critical details when forwarding them.
+5. Use a repository handoff file only when the content is long, must remain exact, or will be consumed by multiple later agents.
+6. When a handoff file is used, store it under `.opencode/handoffs/`, include its exact path in the next task prompt, and still provide a concise inline summary.
+7. If required context is missing, the orchestrator should reconstruct it from the available result or invoke the originating agent again. Do not send the receiving agent to search sibling-agent chat history.
+
+Direct context transfer is the default. Durable files are a fallback for large or reusable artifacts, not a requirement for every workflow.
 
 ## Response discipline
 

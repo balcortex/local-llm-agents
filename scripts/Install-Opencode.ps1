@@ -56,6 +56,7 @@ $SourceAgentsMd = Join-Path $SourceRoot "AGENTS.md"
 $TargetOpenCode = Join-Path $ProjectRoot ".opencode"
 $TargetAgents = Join-Path $TargetOpenCode "agents"
 $TargetSkills = Join-Path $TargetOpenCode "skills"
+$TargetHandoffs = Join-Path $TargetOpenCode "handoffs"
 $TargetAgentsMd = Join-Path $ProjectRoot "AGENTS.md"
 
 Write-Section "Installing local LLM agents for opencode"
@@ -84,9 +85,11 @@ Write-Section "Creating opencode folders"
 
 New-Item -ItemType Directory -Path $TargetAgents -Force | Out-Null
 New-Item -ItemType Directory -Path $TargetSkills -Force | Out-Null
+New-Item -ItemType Directory -Path $TargetHandoffs -Force | Out-Null
 
 Write-Host "Created: $TargetAgents"
 Write-Host "Created: $TargetSkills"
+Write-Host "Created: $TargetHandoffs"
 
 # Copy agents
 Write-Section "Copying agents"
@@ -154,6 +157,7 @@ Write-Host ""
 Write-Host "Installed structure:"
 Write-Host " - .opencode/agents/"
 Write-Host " - .opencode/skills/"
+Write-Host " - .opencode/handoffs/"
 Write-Host " - AGENTS.md"
 Write-Host ""
 Write-Host "Restart opencode UI and open:"
