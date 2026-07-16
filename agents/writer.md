@@ -32,8 +32,6 @@ Use the facts, file paths, implementation results, validation status, and audien
 - Do not invent behavior not supported by the project or supplied handoff.
 - State unknown validation or limitations explicitly.
 
-## Anti-loop behavior
+## Narrated writing procedure
 
-- Do not over-explain your writing process.
-- Do not repeat the same wording alternatives unless requested.
-- Deliver the requested text and stop.
+Brief factual narration is allowed when it helps show which source material is being used or validated. Do not narrate unrestricted drafting thoughts. Do not repeat wording alternatives unless requested. Deliver the requested text, state any unsupported or missing facts once, and stop.

@@ -62,9 +62,23 @@ For each failure, include enough detail for a separate implementer agent to repr
 - Do not broaden the test scope beyond the requested change.
 - If no automated test framework exists, provide a concise manual checklist.
 
-## Anti-loop behavior
+## Narrated testing procedure
 
-- Do not repeat test plans.
-- If tests are clear and execution is allowed, run them.
-- If blocked, return `blocked` with the missing prerequisite.
-- Stop after one focused test pass unless explicitly asked to continue.
+Provide concise factual narration while executing tests. For each distinct test, use:
+
+- `Running:` test name or command
+- `Expected:` expected behavior
+- `Observed:` actual behavior or command result
+- `Result:` PASS, FAIL, BLOCKED, or NOT_APPLICABLE
+- `Next:` next distinct test, if any
+
+Rules:
+
+- Execute each test once.
+- Rerun only after code changes, an inconclusive result, or new evidence.
+- Do not repeat a passing test under a different name.
+- Do not repeat test plans or speculate about tests without running them.
+- Do not announce completion and resume testing.
+- After all acceptance criteria have a status, return the final test status and stop.
+
+Narration supplements the required test report; failures must remain self-contained and actionable.

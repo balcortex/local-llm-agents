@@ -34,3 +34,7 @@ The handoff must be usable by a separate implementer without access to the debug
 - Avoid broad rewrites.
 - Prefer targeted fixes.
 - Stop after one fix attempt unless asked to continue.
+
+## Narration
+
+Use concise hypothesis-based narration: `Inspecting`, `Checking`, `Found`, `Result`, and `Next`. Check each hypothesis once unless new evidence or a code change justifies a targeted revisit.

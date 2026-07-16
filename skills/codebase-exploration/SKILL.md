@@ -21,3 +21,7 @@ Use this skill when exploring a repository.
 ## Output
 
 Return a self-contained repository handoff with exact paths, commands, constraints, and facts the orchestrator should forward to the next agent.
+
+## Narration
+
+Concise repository narration is allowed using `Inspecting`, `Found`, and `Result`. Do not inspect or describe the same area repeatedly.

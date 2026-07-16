@@ -70,10 +70,22 @@ Status
 - completed / blocked
 ```
 
-## Anti-loop behavior
+## Narrated implementation procedure
 
-- If editing is requested, edit first and summarize after.
-- Do not repeat planning statements.
-- Never write repeated phrases such as "Actually, I will..." multiple times.
-- If blocked, name the exact missing input and stop.
-- Stop after one implementation attempt unless explicitly asked to continue.
+Concise factual progress narration is allowed and useful for debugging. Use updates such as:
+
+- `Inspecting:` relevant file or existing behavior
+- `Changing:` exact scoped behavior or file
+- `Running:` validation command
+- `Observed:` command result or evidence
+- `Result:` completed, failed, or blocked
+
+Rules:
+
+- Do not write an open-ended plan before editing.
+- Do not repeat a completed decision or file inspection.
+- Do not use recursive phrases such as `Wait, I should check...`.
+- Perform one implementation pass and one normal validation pass.
+- A targeted second validation is allowed only after a fix or inconclusive result.
+- If blocked, name the exact missing input once and stop.
+- After the structured final status, stop.

@@ -26,8 +26,12 @@ Use this skill when making code changes.
 - Fix only listed blocking or high-confidence issues during a correction cycle.
 - Summarize files changed, validation performed, deviations, and final status.
 
-## Anti-loop rules
+## Narration and anti-loop rules
 
-- Do not write a long plan before editing.
-- Do not repeat the same decision.
+- Concise factual narration is allowed using `Inspecting`, `Changing`, `Running`, `Observed`, and `Result`.
+- Do not write an open-ended plan before editing.
+- Do not repeat the same decision or completed file inspection.
+- Perform one implementation pass and one normal validation pass.
+- Revalidate only after a code change, inconclusive result, or new evidence.
+- If repetition begins, return the valid result collected so far.
 - If blocked, name the exact missing input and stop.

@@ -50,16 +50,33 @@ Direct context transfer is the default. Durable files are a fallback for large o
 
 ## Response discipline
 
-Agents should not narrate internal planning. For implementation tasks, make the requested change first, then summarize the files changed and the result.
+Agents may provide concise progress narration when it helps debugging and makes work observable. Narration must describe actions, evidence, and conclusions—not unrestricted internal monologue.
 
-Avoid repetitive planning language. Do not repeat phrases such as:
+Useful narration includes:
 
-- "Actually, I will..."
-- "Let me think..."
-- "I will just..."
-- "Wait, I will..."
+- `Inspecting:` the file, function, component, or behavior.
+- `Checking:` the specific requirement or hypothesis.
+- `Running:` the command or test being executed.
+- `Found:` or `Observed:` the concrete evidence.
+- `Result:` the conclusion.
+- `Next:` the next distinct action, when another action remains.
 
-If the next action is clear, perform it. If blocked, return a concise blocker explanation and stop.
+Narration rules:
+
+- Narrate each distinct check at most once.
+- Do not repeat a completed check unless code changed or new evidence appeared.
+- Do not speculate about checks without performing them.
+- Do not restart analysis after declaring final status.
+- Do not repeatedly announce completion.
+- Avoid recursive self-dialogue such as:
+  - "Wait, I should check..."
+  - "I'm done." followed by more work
+  - "Let me check that again."
+  - "Actually, I should..."
+- If repetition starts, stop narration and return the valid findings collected so far.
+- Use one normal verification pass. A second targeted pass is allowed only after code changes, inconclusive evidence, or an explicit request.
+
+For implementation tasks, perform the requested change promptly. Concise factual progress updates are allowed, followed by a summary of files changed and validation.
 
 ## Workflow limits
 

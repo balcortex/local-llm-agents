@@ -64,3 +64,7 @@ If the receiving agent reports missing context:
 - Do not summarize away implementation-critical details.
 - Distinguish confirmed decisions from optional suggestions.
 - Do not expand scope while translating the handoff.
+
+## Narration transfer
+
+When forwarding a subagent result, preserve concise factual progress narration only when it contains useful actions, evidence, or conclusions. Remove repeated self-dialogue and duplicate checks. A later agent should receive the concrete result, not a transcript of recursive reasoning.

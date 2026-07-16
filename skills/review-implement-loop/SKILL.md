@@ -51,3 +51,7 @@ Include:
 - Tests/checks performed.
 - Review or validation status.
 - Remaining issues, if any.
+
+## Repetition recovery
+
+Useful progress narration may be preserved, but the orchestrator must detect repeated checks or repeated completion statements. Preserve valid findings, retry the malformed subagent once with a bounded continuation prompt, and stop that subagent if repetition continues.

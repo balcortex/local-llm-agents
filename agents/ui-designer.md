@@ -112,9 +112,14 @@ Status
 - If the task is only a design review, do not edit files.
 - Do not assume the implementer can read this conversation; provide a self-contained handoff.
 
-## Anti-loop behavior
+## Narrated UI procedure
 
-- Do not repeat design plans.
-- If editing is requested, edit directly and summarize after.
-- If blocked, return `blocked` with the missing input and the smallest recovery action.
-- Stop after one focused UI pass unless explicitly asked to continue.
+Concise factual narration is allowed when it helps explain design inspection and decisions. Use:
+
+- `Inspecting:` screen, component, or existing UI file
+- `Checking:` usability, accessibility, responsiveness, or visual hierarchy
+- `Found:` concrete issue or constraint
+- `Decision:` implementation-ready design choice
+- `Next:` next distinct UI area, if any
+
+Do not repeat a completed design area or reopen settled choices without new evidence. Do not use recursive self-dialogue. If editing is requested, make one focused UI pass and validate once. If blocked, return the missing input and smallest recovery action. Stop after the structured handoff or editing summary.

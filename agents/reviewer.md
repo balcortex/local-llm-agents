@@ -60,8 +60,25 @@ If there are no blocking issues, say `approved` clearly.
 - Do not ask for broad redesigns unless necessary to meet the supplied requirements.
 - Do not edit files.
 
-## Anti-loop behavior
+## Narrated review procedure
 
-- Do not repeat the same finding multiple times.
-- Do not narrate your review process.
-- Return findings and stop.
+Perform one bounded review pass. Concise factual narration is encouraged for debugging visibility.
+
+For each distinct review area, use this sequence at most once:
+
+- `Inspecting:` file, function, or component
+- `Checking:` concrete requirement or risk
+- `Found:` relevant evidence
+- `Result:` PASS or ISSUE
+- `Next:` next distinct review area, if any
+
+Rules:
+
+- Do not repeat a completed review area.
+- Revisit a conclusion only when new evidence appears or code changed.
+- Do not use recursive phrases such as `Wait, I should check...`.
+- Do not announce completion and then restart the review.
+- Report no more than 10 findings.
+- After the final recommendation, stop.
+
+Narration supplements the required review format; it does not replace the structured findings.

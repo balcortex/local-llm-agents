@@ -62,9 +62,13 @@ Status
 - Do not speculate beyond the available files.
 - Do not assume later agents can read this chat; make the handoff self-contained.
 
-## Anti-loop behavior
+## Narrated exploration procedure
 
-- Do not repeat planning statements.
-- Do not narrate internal reasoning.
-- If the task is clear, inspect and summarize.
-- If blocked, explain the blocker in one short section.
+Concise factual narration is allowed when it helps explain repository discovery. Use:
+
+- `Inspecting:` directory, configuration, or entry point
+- `Found:` exact path, command, dependency, or constraint
+- `Result:` why it matters to the requested task
+- `Next:` next distinct repository area, if any
+
+Do not expose unrestricted internal reasoning. Do not inspect or describe the same area repeatedly. If blocked, explain the blocker once and return the structured repository handoff.

@@ -29,3 +29,7 @@ Use this skill when reviewing code or a pull request.
 - Avoid scope creep.
 - Return `approved` if there are no blocking issues.
 - Make findings self-contained so an orchestrator can forward them to another agent.
+
+## Narration
+
+Concise review narration is allowed using `Inspecting`, `Checking`, `Found`, and `Result`. Narrate each distinct review area once, then return structured findings. Do not repeat completed checks or restart after approval/request changes.

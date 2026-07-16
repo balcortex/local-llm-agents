@@ -266,4 +266,5 @@ To invoke subagents directly, select them through the `@` autocomplete so the me
 - Use direct orchestrator context transfer by default and `.opencode/handoffs/` for long or exact artifacts.
 - Avoid manually maintaining duplicated adapter files until a generator script exists.
 - Prefer bounded workflows with a maximum number of review/fix/test cycles.
-- If a model starts repeating planning text, stop it and re-run with a more direct prompt such as: `Edit the file directly. Do not write a plan. Summarize after editing.`
+- Concise progress narration is supported for debugging. Prefer factual markers such as `Inspecting`, `Checking`, `Running`, `Found`, and `Result`.
+- If a model starts repeating the same check or says it is done and resumes, re-run once with: `Keep concise action narration, continue from the last valid distinct step, do not repeat completed checks, and return the structured final result.`

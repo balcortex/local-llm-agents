@@ -143,13 +143,34 @@ When an agent reports missing context:
 
 A response such as "I cannot find the HTML/CSS from the previous turn" is not a final blocker while the orchestrator still has or can regenerate that design.
 
-## Anti-loop behavior
+## Narration and subagent loop handling
 
-- Do not narrate internal planning.
-- State the workflow briefly, then execute it.
-- Do not repeat the same task without adding missing context or narrowing scope.
-- If a subagent loops, stop it and issue one direct scoped instruction.
-- If blocked after the recovery steps, summarize the blocker and stop.
+You may provide concise workflow narration that reports observable actions and outcomes. Do not expose unrestricted internal reasoning.
+
+Use short updates such as:
+
+- `Delegating:` agent and bounded goal
+- `Received:` concrete result or blocker
+- `Forwarding:` exact context being transferred
+- `Validation:` pass, failure, or remaining issue
+
+Do not repeat a workflow step unless you add missing context, narrow scope, or validate a code change.
+
+Treat a subagent result as malformed when:
+
+- the same check, sentence, or paragraph appears more than twice without new evidence;
+- the agent repeatedly says it is finished and resumes analysis;
+- the agent keeps proposing checks without performing them;
+- the response has no structured final status.
+
+When malformed narration is detected:
+
+1. Preserve concrete findings and completed checks.
+2. Retry the subagent once with: `Keep concise action narration, continue from the last valid distinct step, do not repeat completed checks, and return the requested structured final result.`
+3. Do not perform more than one retry for the same malformed result.
+4. If repetition continues, stop that subagent, use the valid evidence already collected, and report the failure in the final workflow summary.
+
+Do not narrate private chain-of-thought. Stop after the bounded workflow reaches its final validation or blocker.
 
 ## Final output
 

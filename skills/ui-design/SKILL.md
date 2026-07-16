@@ -54,3 +54,7 @@ Include:
 - open decisions.
 
 Use a `.opencode/handoffs/` file only when explicitly requested or when the artifact is too long or exact to preserve reliably inline.
+
+## Narration
+
+Concise UI narration is allowed using `Inspecting`, `Checking`, `Found`, and `Decision`. Do not repeat settled design areas without new evidence.

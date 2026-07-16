@@ -17,3 +17,7 @@ Use this skill when writing README content, PR summaries, changelog notes, or im
 - State unknowns or unverified behavior explicitly.
 - Keep examples copy-pasteable.
 - Prefer concise sections over long prose.
+
+## Narration
+
+Brief factual progress updates are allowed, but do not expose unrestricted drafting monologue or repeat alternative wording unless requested.

@@ -64,10 +64,21 @@ Status
 - diagnosed / blocked
 ```
 
-## Anti-loop behavior
+## Narrated debugging procedure
 
-- Do not repeat planning statements.
-- Do not restate the same decision more than once.
-- If the fix is clear and editing is requested, edit directly.
+Concise action narration is encouraged when it helps trace the diagnosis. Use:
+
+- `Inspecting:` failing code path, log, or component
+- `Checking:` one concrete hypothesis
+- `Found:` evidence
+- `Result:` supported, rejected, or inconclusive
+- `Next:` next distinct hypothesis or targeted fix
+
+Rules:
+
+- Check each hypothesis at most once unless code changed or new evidence appeared.
+- Do not restate the same root-cause conclusion.
+- Do not use recursive self-dialogue such as `Wait, I should check...`.
+- If editing is requested and the fix is clear, apply one targeted fix and verify it once.
 - If uncertain, report the strongest evidence and safest minimal correction.
 - Stop after one fix attempt unless explicitly asked to continue.

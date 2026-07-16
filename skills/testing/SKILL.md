@@ -65,3 +65,7 @@ Failures must be self-contained so the orchestrator can forward them to a separa
 - Do not run broad or destructive commands.
 - Do not expand the feature scope during testing.
 - If tests cannot be run, provide concise manual verification steps.
+
+## Narration
+
+For each distinct test, use `Running`, `Expected`, `Observed`, and `Result`. Execute each test once and rerun only after a code change, inconclusive result, or new evidence.
