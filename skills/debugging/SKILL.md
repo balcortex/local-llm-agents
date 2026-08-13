@@ -1,40 +1,17 @@
 ---
 name: debugging
-description: Diagnose a failing behavior from evidence, identify the smallest plausible root cause, define a targeted correction, and specify focused verification.
-compatibility: opencode
+description: Diagnose a concrete failing behavior from harness/test evidence and define the smallest safe correction.
+compatibility: opencode,codex
 ---
 
-# Debugging Skill
+# Debugging
 
-Use this skill when diagnosing a bug, failing behavior, or error message.
+Use only after a concrete failure, error, or failing check exists.
 
-## Steps
+1. Restate the observed failure.
+2. Trace the smallest relevant code path.
+3. Gather evidence for the most plausible root cause.
+4. Apply or propose the smallest safe correction.
+5. Re-run only the focused validation justified by the change.
 
-1. Reproduce or restate the failure.
-2. Locate the likely failing code path.
-3. Gather evidence for the smallest plausible root cause.
-4. Propose the smallest safe fix.
-5. Verify with a targeted test or manual check.
-
-## Handoff requirements
-
-Return:
-
-- observed failure and reproduction conditions;
-- evidence with relevant files or logs;
-- root cause;
-- exact targeted correction;
-- verification step;
-- confidence level.
-
-The handoff must be usable by a separate implementer without access to the debugging conversation.
-
-## Rules
-
-- Avoid broad rewrites.
-- Prefer targeted fixes.
-- Stop after one fix attempt unless asked to continue.
-
-## Narration
-
-Use concise hypothesis-based narration: `Inspecting`, `Checking`, `Found`, `Result`, and `Next`. Check each hypothesis once unless new evidence or a code change justifies a targeted revisit.
+Do not broaden the task. Do not repeatedly test the same hypothesis without new evidence.

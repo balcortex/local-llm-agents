@@ -1,0 +1,2 @@
+param([string]$ProjectRoot,[switch]$OverwriteAgentsMd,[switch]$KeepSource,[switch]$Force)
+& (Join-Path $PSScriptRoot "Install-Project.ps1") -ProjectRoot $ProjectRoot -Runtime Codex -OverwriteAgentsMd:$OverwriteAgentsMd -KeepSource:$KeepSource -Force:$Force

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "max_validation_attempts": 2,
+  "checks": [
+    {
+      "name": "tests",
+      "command": "npm test",
+      "required": true,
+      "timeout_seconds": 600
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "required": false,
+      "timeout_seconds": 300
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Local run/evaluation artifacts
+.agent/runs/
+.agent/eval-results/
+**/.agent/runs/
+**/.agent/eval-results/
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+eval-results/
